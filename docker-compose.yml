@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  bot:
+    build: .
+    image: RPITechTalks/BoilerplateDiscordBot
+    environment:
+      DISCORD_BOT_TOKEN: "${DISCORD_BOT_TOKEN}"
