@@ -23,7 +23,7 @@ def getStonk(stonk):
 '''
 def checkHistoric(data):
     historic = False
-    prunedData = data
+    prunedData = {"name": "", "tradable": True, curr_price = ""}
     return {historic, prunedData}
 
 '''
@@ -76,7 +76,7 @@ class Trader(object):
     '''
     Function that adds money to your account
     '''
-    def gift():
+    def gift(amount):
         return False
 
 print(getStonk("AMD"))
