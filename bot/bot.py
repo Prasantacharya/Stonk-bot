@@ -18,6 +18,7 @@ class BoilerplateDiscordBot(commands.Bot):
             'bot.cogs.general',
             'bot.cogs.help',
             'bot.cogs.mention',
+            'bot.cogs.stock',
         ]
         self.load_extensions()
 

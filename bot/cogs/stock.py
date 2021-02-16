@@ -1,30 +1,46 @@
+import discord
 import sqlite3
-import io
-import json
-import urllib3
+import requests
+from discord import Colour
+from discord.ext import tasks, commands
 
-http = urllib3.PoolManager()
+async def get_ticker(ticker):
+    pass
 
-'''
-# Purpose: Helper function for getting stocks data,
-# Args: stock ticker
-# Returns: json data for stock from yahoo finance api
-# Ex: getStonk('AMD') => {price: 15, currency: USD, ... }
-'''
-def getStonk(stonk):
-    r = http.request('GET', "https://query1.finance.yahoo.com/v7/finance/quote?symbols=" + stonk)
-    return json.loads(r.data)
+class StockCog(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
 
-'''
-# Purpose: Helper functoin to determine if historic
-# Args: json data
-# Returns: True if historic, false if not
-# Ex: checkHistoric(getStonk("AMD")) => false
-'''
-def checkHistoric(data):
-    historic = False
-    prunedData = {"name": "", "tradable": True, curr_price = ""}
-    return {historic, prunedData}
+    @commands.command(aliases=['stonk', 'stock'])
+    async def stock(self, ctx):
+        embed = discord.Embed().add_field().add_field()
+        await ctx.send(embed=embed)
+
+    # TODO:
+    # example: !buy 5 BTC-USD
+    @command.command()
+    async def buy(self, ctx, shares: int, ticker: str):
+        return True
+
+    # TODO:
+    @command.command()
+    async def sell(self,):
+        pass
+
+    # TODO:
+    @command.command()
+    async def get_portfolio():
+        pass
+
+    # TODO:
+    # Looks up and updates the stocks on the list of portfolios
+    @tasks.loop(seconds=45)
+    async def lookup():
+        pass
+
+
+def setup(bot):
+    bot.add_cog(EmbedHelpCog(bot))
 
 class MarketPlace(object):
     """docstring forMarketPlace."""
@@ -35,7 +51,7 @@ class MarketPlace(object):
         self.requestQueue = {} # (ticker, last update-time, )
         # Database structure:
         # 2 tables:
-        # stock table: (key: id-{text}, asset {commodity, crypto, stock})
+        # stock table: (key: id-{text}, asset {commodity, crypto, stock}, ticker , buying price)
         # person table: (key: id-{text}, money-{double precision})
         self.cur.execute("""CREATE TABLE IF NOT EXISTS stockAccount(
                     id       INT
